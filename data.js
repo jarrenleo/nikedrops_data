@@ -163,7 +163,7 @@ export async function getUpcomingData(channel, country) {
     }
 
     const upcomingProductsSortedByDateTime = upcomingProducts.sort(
-      (a, b) => a.dateTimeObject - b.dateTimeObject
+      (a, b) => a.releaseDateTime - b.releaseDateTime
     );
 
     return upcomingProductsSortedByDateTime;
