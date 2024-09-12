@@ -49,6 +49,4 @@ async function updateData() {
   }
 }
 
-updateData();
-
-// setInterval(updateData, 1000 * 60 * 60);
+setInterval(updateData, 1000 * 60 * 60);
