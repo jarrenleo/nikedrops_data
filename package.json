@@ -1,0 +1,17 @@
+{
+  "name": "sneakify_data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "jarrenleo",
+  "license": "ISC",
+  "description": "Script to update the upcoming data every hour on mongodb.",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.8.1"
+  }
+}
