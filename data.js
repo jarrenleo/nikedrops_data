@@ -69,7 +69,7 @@ function extractPublishedName(country, sku, publishedContent) {
   let publishedName;
   const title = publishedContent.properties.coverCard.title;
   const subtitle = publishedContent.properties.coverCard.subtitle;
-  ("Date de sortie de la ");
+
   if (title && subtitle) {
     publishedName = `${subtitle} '${title}'`;
   } else {
@@ -78,6 +78,7 @@ function extractPublishedName(country, sku, publishedContent) {
 
     let startIndex = 0;
     if (country === "FR") startIndex = 21;
+
     let indexToDeduct = 2;
     if (country === "KR") indexToDeduct = 1;
 
