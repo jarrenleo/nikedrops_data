@@ -104,11 +104,16 @@ function formatPrice(price, country) {
   }).format(price);
 }
 
-function extractImageUrl(channel, publishedContent) {
-  if (channel === "SNKRS Web")
-    return publishedContent.coverCard.properties.squarishURL;
+async function extractImageUrl(sku) {
+  const response = await fetch(
+    `https://secure-images.nike.com/is/image/DotCom/${sku.replace("-", "_")}`
+  );
+  const imageUrl = response.url.replace(
+    "rgb:FFFFFF,q_auto,h_400",
+    "rgb:D4D4D4,q_auto,h_720"
+  );
 
-  return publishedContent.productCard.properties.squarishURL;
+  return imageUrl;
 }
 
 export async function getUpcomingData(channel, country) {
@@ -147,10 +152,7 @@ export async function getUpcomingData(channel, country) {
           productInfo.launchView?.startEntryDate ||
             productInfo.merchProduct.commerceStartDate
         );
-        const imageUrl = extractImageUrl(
-          channel,
-          data.publishedContent.properties
-        );
+        const imageUrl = await extractImageUrl(sku);
 
         upcomingProducts.push({
           id,

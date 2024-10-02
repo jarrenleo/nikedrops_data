@@ -41,6 +41,7 @@ async function updateData() {
         await nikeCollection.deleteMany({});
         await nikeCollection.insertMany(nikeData);
       }
+      // console.log(`Updated ${country} data`);
     }
   } catch (error) {
     console.log(error.message);
@@ -50,3 +51,4 @@ async function updateData() {
 }
 
 setInterval(updateData, 1000 * 60 * 60);
+// updateData();
