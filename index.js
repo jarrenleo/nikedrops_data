@@ -3,7 +3,7 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 import { getUpcomingData } from "./data.js";
 config();
 
-const countries = ["SG", "MY", "JP", "KR", "FR", "GB", "CA", "US"];
+const countries = ["JP", "KR", "SG", "MY", "FR", "GB", "CA", "AU", "US", "MX"];
 
 const client = new MongoClient(process.env.MONGODB_URI, {
   serverApi: {
@@ -41,8 +41,8 @@ async function updateData() {
         await nikeCollection.deleteMany({});
         await nikeCollection.insertMany(nikeData);
       }
-      // console.log(`Updated ${country} data`);
     }
+    console.log("Data updated");
   } catch (error) {
     console.log(error.message);
   } finally {
