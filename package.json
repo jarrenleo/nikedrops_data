@@ -12,6 +12,6 @@
   "description": "Script to update the upcoming releases data every hour on MongoDB.",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "mongodb": "^6.8.1"
+    "mongodb": "^6.10.0"
   }
 }
