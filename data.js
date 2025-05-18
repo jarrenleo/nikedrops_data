@@ -126,9 +126,11 @@ async function extractImageUrl(sku) {
 export async function getUpcomingData(channel, country) {
   try {
     const language = languages[country];
+    let marketplace = country;
+    if (country === "AU") marketplace = "ASTLA";
 
     const upcomingData = await fetchUpcomingData(
-      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${country})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`
+      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${marketplace})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`
     );
 
     const upcomingProducts = [];

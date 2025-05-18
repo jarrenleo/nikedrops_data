@@ -3,7 +3,7 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 import { getUpcomingData } from "./data.js";
 config();
 
-const countries = ["JP", "KR", "SG", "MY", "FR", "GB", "CA", "AU", "US", "MX"];
+const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
 
 const client = new MongoClient(process.env.MONGODB_URI, {
   serverApi: {
