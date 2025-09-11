@@ -111,16 +111,13 @@ function formatPrice(price, country) {
   }).format(price);
 }
 
-async function extractImageUrl(sku) {
-  const response = await fetch(
-    `https://secure-images.nike.com/is/image/DotCom/${sku.replace("-", "_")}`
+async function extractImageUrl(nodes, sku) {
+  const imageNode = nodes.find((node) =>
+    node.properties.internalName?.includes(sku)
   );
-  const imageUrl = response.url.replace(
-    "rgb:FFFFFF,q_auto,h_400",
-    "rgb:D4D4D4,q_auto,h_720"
-  );
+  if (!imageNode) return nodes[0].nodes[0].properties.squarishURL;
 
-  return imageUrl;
+  return imageNode.properties.squarishURL;
 }
 
 export async function getUpcomingData(channel, country) {
@@ -161,7 +158,10 @@ export async function getUpcomingData(channel, country) {
           productInfo.launchView?.startEntryDate ||
             productInfo.merchProduct.commerceStartDate
         );
-        const imageUrl = await extractImageUrl(sku);
+        const imageUrl = await extractImageUrl(
+          data.publishedContent.nodes,
+          sku
+        );
 
         upcomingProducts.push({
           id,
