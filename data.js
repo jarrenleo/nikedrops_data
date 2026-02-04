@@ -73,14 +73,14 @@ async function fetchUpcomingData(url, upcomingData = []) {
 
 function extractPublishedName(country, sku, publishedContent) {
   let publishedName;
-  const title = publishedContent.properties.coverCard.title;
-  const subtitle = publishedContent.properties.coverCard.subtitle;
+  const title = publishedContent.properties.coverCard?.title;
+  const subtitle = publishedContent.properties.coverCard?.subtitle;
 
   if (title && subtitle) {
     publishedName = `${subtitle} '${title}'`;
   } else {
-    const seoTitle = publishedContent.properties.seo.title;
-    if (!seoTitle.includes(`(${sku})`)) return;
+    const seoTitle = publishedContent.properties.seo?.title;
+    if (!seoTitle || !seoTitle.includes(`(${sku})`)) return;
 
     let startIndex = 0;
     if (country === "FR") startIndex = 21;
@@ -144,7 +144,7 @@ export async function getUpcomingData(channel, country) {
         const sku = productInfo.merchProduct.styleColor;
 
         let name = productInfo.productContent.fullTitle;
-        if (channel === "SNKRS Web" && productsInfo.length === 1)
+        if (channel === "UNKNOWN" && productsInfo.length === 1)
           name =
             extractPublishedName(country, sku, data.publishedContent) ||
             productInfo.productContent.fullTitle;

@@ -19,7 +19,7 @@ async function updateData() {
 
     for (const country of countries) {
       const upcomingData = await Promise.allSettled([
-        getUpcomingData("SNKRS Web", country),
+        getUpcomingData("UNKNOWN", country),
         getUpcomingData("Nike.com", country),
       ]);
 
