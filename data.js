@@ -62,7 +62,7 @@ async function fetchUpcomingData(url, upcomingData = []) {
     if (pages.next)
       return await fetchUpcomingData(
         `https://api.nike.com${pages.next}`,
-        upcomingData
+        upcomingData,
       );
 
     return upcomingData;
@@ -111,26 +111,27 @@ function formatPrice(price, country) {
   }).format(price);
 }
 
-async function extractImageUrl(nodes, sku) {
+function extractImageUrl(nodes, sku) {
   const imageNode = nodes.find((node) =>
-    node.properties.internalName?.includes(sku)
+    node.properties.internalName?.includes(sku),
   );
-  if (!imageNode) return nodes[0].nodes[0].properties.squarishURL;
 
-  return imageNode.properties.squarishURL;
+  return (
+    nodes[0].nodes?.at(0).properties.squarishURL ||
+    imageNode?.properties.squarishURL
+  );
 }
 
 export async function getUpcomingData(channel, country) {
   try {
+    const upcomingProducts = [];
     const language = languages[country];
     let marketplace = country;
     if (country === "AU") marketplace = "ASTLA";
 
     const upcomingData = await fetchUpcomingData(
-      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${marketplace})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`
+      `https://api.nike.com/product_feed/threads/v3/?count=100&filter=marketplace(${marketplace})&filter=language(${language})&filter=upcoming(true)&filter=channelName(${channel})&filter=exclusiveAccess(true,false)&sort=productInfo.merchProduct.commerceStartDateAsc`,
     );
-
-    const upcomingProducts = [];
 
     for (const data of upcomingData) {
       const productsInfo = data?.productInfo;
@@ -152,15 +153,15 @@ export async function getUpcomingData(channel, country) {
         const price = formatPrice(
           +productInfo.merchPrice.currentPrice,
           country,
-          productInfo.merchPrice.currency
+          productInfo.merchPrice.currency,
         );
         const releaseDateTime = new Date(
           productInfo.launchView?.startEntryDate ||
-            productInfo.merchProduct.commerceStartDate
+            productInfo.merchProduct.commerceStartDate,
         );
         const imageUrl = await extractImageUrl(
           data.publishedContent.nodes,
-          sku
+          sku,
         );
 
         upcomingProducts.push({
@@ -176,7 +177,7 @@ export async function getUpcomingData(channel, country) {
     }
 
     const upcomingProductsSortedByDateTime = upcomingProducts.sort(
-      (a, b) => a.releaseDateTime - b.releaseDateTime
+      (a, b) => a.releaseDateTime - b.releaseDateTime,
     );
 
     return upcomingProductsSortedByDateTime;
