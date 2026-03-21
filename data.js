@@ -145,7 +145,7 @@ export async function getUpcomingData(channel, country) {
         const sku = productInfo.merchProduct.styleColor;
 
         let name = productInfo.productContent.fullTitle;
-        if (channel === "UNKNOWN" && productsInfo.length === 1)
+        if (productsInfo.length === 1)
           name =
             extractPublishedName(country, sku, data.publishedContent) ||
             productInfo.productContent.fullTitle;
