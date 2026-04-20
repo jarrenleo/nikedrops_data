@@ -1,6 +1,6 @@
 {
   "name": "nikedrops_data",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "Script to update the upcoming releases data every 6 hours on MongoDB.",
   "dependencies": {
-    "dotenv": "^17.3.1",
-    "mongodb": "^7.1.0"
+    "dotenv": "^17.4.2",
+    "mongodb": "^7.1.1"
   }
 }

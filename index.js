@@ -1,6 +1,10 @@
+import { setServers } from "node:dns/promises";
 import { config } from "dotenv";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import { getUpcomingData } from "./data.js";
+
+setServers(["1.1.1.1", "8.8.8.8"]);
+
 config();
 
 const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
@@ -50,5 +54,5 @@ async function updateData() {
   }
 }
 
-setInterval(updateData, 12 * 60 * 60 * 1000);
-// updateData();
+// setInterval(updateData, 12 * 60 * 60 * 1000);
+updateData();
