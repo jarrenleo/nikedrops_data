@@ -10,7 +10,6 @@ config();
 const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
 
 const client = new MongoClient(process.env.MONGODB_URI);
-console.log(process.env.MONGODB_URI);
 
 async function updateData() {
   try {
