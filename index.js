@@ -1,6 +1,6 @@
 import { setServers } from "node:dns/promises";
-import { config } from "dotenv";
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { config } from "@dotenvx/dotenvx";
+import { MongoClient } from "mongodb";
 import { getUpcomingData } from "./data.js";
 
 setServers(["1.1.1.1", "8.8.8.8"]);
@@ -9,13 +9,8 @@ config();
 
 const countries = ["AU", "JP", "KR", "SG", "MY", "FR", "GB", "CA", "US", "MX"];
 
-const client = new MongoClient(process.env.MONGODB_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const client = new MongoClient(process.env.MONGODB_URI);
+console.log(process.env.MONGODB_URI);
 
 async function updateData() {
   try {
@@ -54,5 +49,5 @@ async function updateData() {
   }
 }
 
-setInterval(updateData, 12 * 60 * 60 * 1000);
-// updateData();
+// setInterval(updateData, 12 * 60 * 60 * 1000);
+updateData();

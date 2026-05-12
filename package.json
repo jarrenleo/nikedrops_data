@@ -10,9 +10,9 @@
   "keywords": [],
   "author": "jarrenleo",
   "license": "ISC",
-  "description": "Script to update the upcoming releases data every 6 hours on MongoDB.",
+  "description": "Script to update the upcoming releases data every 12 hours on MongoDB.",
   "dependencies": {
-    "dotenv": "^17.4.2",
-    "mongodb": "^7.1.1"
+    "@dotenvx/dotenvx": "^1.65.0",
+    "mongodb": "^7.2.0"
   }
 }
